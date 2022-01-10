@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">wanJetpackCompose</string>
+    <string name="hacking">孵蛋中</string>
+    <string name="doughter_borned">闺女出生啦</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
