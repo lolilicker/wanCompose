@@ -1,15 +1,188 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='UTF-8'?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="light_blue_600">#FF039BE5</color>
-    <color name="light_blue_900">#FF01579B</color>
-    <color name="light_blue_A200">#FF40C4FF</color>
-    <color name="light_blue_A400">#FF00B0FF</color>
+    <!-- 新首页开始的新颜色 -->
+    <color name="white">#ffffff</color>
     <color name="black_overlay">#66000000</color>
+    <color name="gray">#a6a6a6</color>
+    <color name="gray_50">#dddddd</color>
+
+    <color name="gray_black">#333333</color>
+    <color name="gray_black_alpha_50">#80333333</color>
+    <color name="gray_black_alpha_90">#E6333333</color>
+    <color name="gray_black_alpha_95">#F2333333</color>
+    <color name="gray_black_50">#777777</color>
+    <color name="gray_black_90">#3D3D3D</color>
+    <color name="gray_black_105">#000000</color>
+    <color name="gray_black_105_alpha_95">#F2000000</color>
+    <color name="gray_black_105_alpha_50">#80000000</color>
+    <color name="gray_black_105_alpha_20">#33000000</color>
+    <color name="gray_black_105_alpha_10">#19000000</color>
+    <color name="douban_black50">#818181</color>
+
+    <color name="temp_vip_content">#5F492D</color>
+    <color name="temp_vip_gradient_start">#EADFD0</color>
+    <color name="temp_vip_gradient_end">#D6C0A2</color>
+
+    <color name="temp_red">#ff7e67</color>
+    <color name="temp_red_hl">#d96c58</color>
+
+    <color name="temp_rally">#FFF3C5</color>
+
+    <color name="blue_black">#3e4347</color>
+    <color name="blue_black_50">#4B5054</color>
+    <color name="blue_black_105">#292b2d</color>
+    <!-- rgba(32,34,36,0.2) -->
+    <color name="blue_black_110">#202224</color>
+
+    <color name="blue_n">#389EAC</color>
+    <color name="blue_5">#f8f9f9</color>
+    <color name="blue_10">#EFF2F3</color>
+    <color name="blue_15">#E4ECEE</color>
+    <color name="blue_20">#d1dfe4</color>
+    <color name="blue_50">#abc6cf</color>
+    <color name="blue_90">#33B3C4</color>
+    <color name="blue_105">#658c99</color>
+    <color name="blue_20_half_trans">#7Fd1dfe4</color>
+    <color name="blue_n_trans_20">#33389EAC</color>
+
+    <color name="green_n">#5dcaad</color>
+    <color name="green_5">#f1fffb</color>
+    <color name="green_50">#9de5d2</color>
+    <color name="green_80">#7dd5bd</color>
+    <color name="green_105">#3DB192</color>
+    <color name="green_150">#25302F</color>
+    <color name="green_105_alpha_15">#263DB192</color>
+
+    <color name="douban_green">#42bd56</color>
+
+    <color name="red_n">#fa595f</color>
+    <color name="red_5">#fff5f5</color>
+    <color name="red_10">#FEE6E7</color>
+    <color name="red_50">#fcacaf</color>
+    <color name="red_110">#df3b42</color>
+    <color name="red_150">#302525</color>
+    <color name="red_bubble">#ff3a30</color>
+
+    <color name="purple_150">#342D43</color>
+
+    <color name="orange">#ff9e2c</color>
+    <color name="orange_5">#fff5e9</color>
+    <color name="orange_10">#FFF0DF</color>
+    <color name="orange_50">#ffce95</color>
+    <color name="orange_105">#FF7F00</color>
+    <color name="orange_150">#322613</color>
+
+    <color name="yellow">#f9c300</color>
+    <color name="yellow_5">#ffffe8</color>
+    <color name="yellow_10">#FEF6D9</color>
+    <color name="yellow_50">#ffea9f</color>
+    <color name="yellow_105">#F0AD00</color>
+    <color name="yellow_150">#302E25</color>
+
+    <color name="sky_blue">#3e8ef8</color>
+    <color name="sky_blue_5">#f4f8ff</color>
+    <color name="sky_blue_50">#aacaff</color>
+    <color name="sky_blu_100">#3e82f8</color>
+    <color name="sky_blue_105">#276EEA</color>
+    <color name="sky_blue_150">#2C2F40</color>
+    <!--<color name="sky_blue_50">#aac9ff</color>-->
+
+    <color name="gold">#bb996d</color>
+    <color name="gold_alpha">#33bb996d</color>
+    <color name="gold_transparent_05">#80bb996d</color>
+    <color name="gold_5">#FCFBF9</color>
+    <color name="gold_10">#F4EFE7</color>
+    <color name="gold_15">#EEE7DC</color>
+    <color name="gold_20">#EEDFCC</color>
+    <color name="gold_50">#D6C0A2</color>
+    <color name="gold_105">#B88C53</color>
+    <color name="gold_110">#614B2F</color>
+    <color name="gold_130">#2B241E</color>
+    <color name="gold_150">#24211C</color>
+
+    <color name="pink">#EF3B76</color>
+    <color name="pink_150">#392732</color>
+    <color name="pink_105">#DE2C67</color>
+    <color name="pink_50">#F9B1C8</color>
+    <color name="pink_10">#FDE2EA</color>
+    <color name="pink_5">#FFF7FA</color>
+
+    <!-- 阅读器颜色 -->
+    <color name="rd_beige_150">#94938F</color>
+    <color name="rd_beige">#F6F4EC</color>
+    <color name="rd_beige_105">#EBE7D8</color>
+    <color name="rd_beige_90">#FBF9F3</color>
+
+    <color name="rd_green_150">#78837E</color>
+    <color name="rd_green_105">#B0C9BC</color>
+    <color name="rd_green">#BED4C9</color>
+    <color name="rd_green_90">#C8DED3</color>
+
+    <color name="rd_gold_150">#64594A</color>
+    <color name="rd_gold_105">#867155</color>
+    <color name="rd_gold">#967F61</color>
+    <color name="rd_gold_90">#9E8666</color>
+
+    <!--不是调色板的颜色-->
+    <color name="material_primary">#ffe0e0e0</color>
+
+    <color name="shadow_border_color">#0A000000</color>
+    <color name="shadow_border_color_darker">#28000000</color>
+
+    <!-- 下面是旧颜色。需要找时间整理。 -->
+    <!-- 基础调色板。白天模式 -->
+    <color name="blu_100">#77a4b3</color>
+
+    <color name="blk_0_10">#19ffffff</color>
+    <color name="blk_trans">#666666</color> <!-- 一个透明度较大的黑色，目前只用于账户余额页面的同心圆绘制-->
+    <color name="palette_day_bie_blue">#bccdd2</color>
+    <color name="palette_day_bie_green">#8bbbae</color>
+
+    <!--rally widget header-->
+    <color name="rally_interested_works_header">#0D9992</color>
+
+    <color name="deep_yellow">#c05a32</color>
+
+    <!-- 基础调色板。黑夜模式 -->
+    <color name="palette_night_gray_0">#1f2323</color>
+    <color name="palette_night_gray_10">#181d1d</color>
+    <color name="palette_night_gray_20">#111414</color>
+    <color name="palette_night_gray_30">#424444</color>
+    <color name="palette_night_gray_40">#757575</color>
+    <color name="palette_night_gray_50">#838383</color>
+    <color name="palette_night_blue">#5b7782</color>
+    <color name="palette_night_light_blue">#384c54</color>
+    <color name="palette_night_bie_blue">#465356</color>
+    <color name="palette_night_light_light_blue">#1c2324</color>
+    <color name="palette_night_green">#40917a</color>
+    <color name="palette_night_dark_green">#386e5e</color>
+    <color name="palette_night_red">#a53b3f</color>
+    <color name="palette_night_text_invert">#80ffffff</color>
+
+    <color name="palette_night_yellow_110">#b45f48</color>
+
+    <!-- theme 相关的颜色 -->
+    <color name="white_ffffff">@color/white</color>
+    <color name="blue5_f8f9f9">@color/blue_5</color>
+    <color name="blue10_EFF2F3">@color/blue_10</color>
+    <color name="blue15_E4ECEE">@color/blue_15</color>
+    <color name="blue20_D1DFE4">@color/blue_20</color>
+    <color name="gray50_dddddd">@color/gray_50</color>
+    <color name="gray_a6a6a6">@color/gray</color>
+    <color name="gray_black50_777777">@color/gray_black_50</color>
+    <color name="blue_black_3e4347">@color/blue_black</color>
+    <color name="gray_black_333333">@color/gray_black</color>
+    <color name="theme_green_n">@color/green_n</color>
+    <color name="theme_blue_n">@color/blue_n</color>
+    <color name="theme_red_n">@color/red_n</color>
+    <color name="theme_yellow">@color/yellow</color>
+    <color name="theme_sky_blue">@color/sky_blu_100</color>
+    <color name="theme_gold_10">@color/gold_10</color>
+    <color name="theme_gold_20">@color/gold_20</color>
+
+    <!-- profile 相关特殊处理 -->
+    <color name="profile_white_ffffff">@color/white</color>
+    <color name="profile_blue5_f8f9f9">@color/blue_5</color>
+    <color name="read_button_gradient_start">@color/gray_50</color>
+    <color name="read_button_gradient_end">@color/white</color>
 </resources>

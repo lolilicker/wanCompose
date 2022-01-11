@@ -143,6 +143,8 @@ class WeComposeColors(
         private set
     var chatPageBgAlpha: Float by mutableStateOf(chatPageBgAlpha)
         private set
+    var mask: Color by mutableStateOf(bottomBar)
+        private set
 }
 
 @Composable

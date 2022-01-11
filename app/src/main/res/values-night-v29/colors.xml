@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- theme 相关的颜色对应 dark mode 的颜色 -->
+    <color name="white_ffffff">@color/blue_black</color>
+    <color name="blue5_f8f9f9">@color/blue_black_105</color>
+    <color name="blue10_EFF2F3">@color/blue_black_110</color>
+    <color name="blue15_E4ECEE">@color/gray_black_105</color>
+    <color name="blue20_D1DFE4">@color/gray_black_105</color>
+    <color name="gray50_dddddd">@color/blue_black_50</color>
+    <color name="gray_a6a6a6">@color/gray_black_50</color>
+    <color name="gray_black50_777777">@color/gray_black_50</color>
+    <color name="blue_black_3e4347">@color/gray</color>
+    <color name="gray_black_333333">@color/gray</color>
+    <color name="theme_green_n">@color/green_n</color>
+    <color name="theme_blue_n">@color/blue_n</color>
+    <color name="theme_red_n">@color/red_n</color>
+    <color name="theme_yellow">@color/yellow</color>
+    <color name="theme_sky_blue">@color/sky_blu_100</color>
+    <color name="theme_gold_20">@color/gold_20</color>
+    <color name="red_5">@color/red_150</color>
+    <color name="green_5">@color/green_150</color>
+    <color name="yellow_5">@color/yellow_150</color>
+    <color name="sky_blue_5">@color/sky_blue_150</color>
+
+    <!--不是调色板的颜色-->
+    <color name="material_primary">#FF1D1E21</color>
+
+    <!-- 兼容我的页自己写的临时颜色，需要等设计给色值 -->
+    <color name="theme_gold_10">@color/blue_black_110</color>
+
+    <color name="profile_white_ffffff">@color/blue_black_105</color>
+    <color name="profile_blue5_f8f9f9">@color/blue_black_110</color>
+    <color name="read_button_gradient_start">@color/blue_black_110</color>
+    <color name="read_button_gradient_end">@color/blue_black_105</color>
+</resources>
