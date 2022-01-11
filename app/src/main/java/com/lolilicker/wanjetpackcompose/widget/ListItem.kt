@@ -18,14 +18,15 @@ import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 fun listItemButton(
     text: String,
     fontSize: TextUnit = MaterialTheme.typography.h4.fontSize,
-    onClick: () -> Unit
+    clickable: Boolean = true,
+    onClick: () -> Unit = {}
 ) {
     Text(text = text,
         fontSize = fontSize,
         color = WeComposeTheme.colors.textPrimary,
         modifier = Modifier
             .background(WeComposeTheme.colors.listItem)
-            .clickable {
+            .clickable(enabled = clickable) {
                 onClick()
             }
             .padding(25.dp)

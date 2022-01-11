@@ -3,6 +3,7 @@ buildscript {
     ext {
         compose_version = '1.0.5'
         navigationVersion = "2.0.0"
+        room_version = "2.4.0"
     }
     repositories {
         google()

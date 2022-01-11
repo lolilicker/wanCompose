@@ -32,6 +32,7 @@ object DateUtils {
     const val ONE_HOUR_TIME = 60 * ONE_MINUTE_TIME // 一小时
     const val ONE_DAY_TIME = 24 * ONE_HOUR_TIME // 一天
     const val ONE_MONTH_TIME = 30 * ONE_DAY_TIME // 一个月
+    const val ONE_WEEK_TIME = 7 * ONE_DAY_TIME // 一个月
     private val TAG = DateUtils::class.java.simpleName
     private val sISO8601Format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZZZZZ")
     private val sYearMonthFormat = SimpleDateFormat("yyyy年MM月")
@@ -278,7 +279,7 @@ object DateUtils {
             sTimeFormat.timeZone = TimeZone.getTimeZone("UTC")
             //            timeString = sTimeFormat.format(new Date(Math.abs(millis)));
             timeString = "%02d:%02d:%02d".format(
-                 TimeUnit.MILLISECONDS.toHours(
+                TimeUnit.MILLISECONDS.toHours(
                     millis!!
                 ),
                 TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
@@ -352,6 +353,21 @@ object DateUtils {
         }
         val durationInMillis = date1.time - date2.time
         return durationInMillis / ONE_HOUR_TIME
+    }
+
+    fun getWeeksBetween(date1: Date?, date2: Date?): String {
+        if (date1 == null || date2 == null) {
+            return ""
+        }
+        val durationInMillis = date1.time - date2.time
+        val days = durationInMillis / ONE_DAY_TIME
+        val week = days / 7
+        val modDays = days % 7
+        return if (modDays == 0L) {
+            "整 $week 周"
+        } else {
+            "$week 周零 $modDays 天"
+        }
     }
 
     /**

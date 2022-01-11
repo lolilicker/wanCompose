@@ -11,7 +11,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
+import com.lolilicker.wanjetpackcompose.WanViewModel
+import com.lolilicker.wanjetpackcompose.utils.DateUtils
 import com.lolilicker.wanjetpackcompose.widget.DatePicker
 import com.lolilicker.wanjetpackcompose.widget.listItemButton
 import java.util.*
@@ -33,27 +34,45 @@ private fun contentView() {
             .background(MaterialTheme.colors.background)
             .padding(16.dp)
     ) {
-        val viewModel: HatchingViewModel = viewModel()
-        listItemButton("最后一次大姨妈那天来哒", fontSize = MaterialTheme.typography.h5.fontSize) {
-            viewModel.showDatePicker = true
+        val hatchingViewModel: HatchingViewModel = viewModel()
+        val wanViewModel: WanViewModel = viewModel()
+
+        if (wanViewModel.lastPeriodDate.value == null) {
+            listItemButton(
+                "最后一次大姨妈哪天来哒？",
+                fontSize = MaterialTheme.typography.h5.fontSize
+            ) {
+                hatchingViewModel.showDatePicker = true
+            }
+        } else {
+            listItemButton(
+                wanViewModel.grownTimeString,
+                fontSize = MaterialTheme.typography.h4.fontSize
+            )
+            listItemButton(
+                wanViewModel.dueTimeString,
+                fontSize = MaterialTheme.typography.h4.fontSize
+            )
         }
+
     }
 }
 
 @Composable
 private fun datePickerView() {
-    val viewModel: HatchingViewModel = viewModel()
+    val hatchingViewModel: HatchingViewModel = viewModel()
+    val wanViewModel: WanViewModel = viewModel()
     DatePicker(onDateSelected = {
-        viewModel.showDatePicker = false
-        viewModel.lastPeriodDate = it
+        hatchingViewModel.showDatePicker = false
+        wanViewModel.lastPeriodDate.value = it
+        wanViewModel.recalculateDate()
     }) {
-        viewModel.showDatePicker = false
+        hatchingViewModel.showDatePicker = false
     }
 }
 
 class HatchingViewModel : ViewModel() {
     var showDatePicker by mutableStateOf(false)
-    var lastPeriodDate by mutableStateOf(Date())
 }
 
 @Preview("preview")

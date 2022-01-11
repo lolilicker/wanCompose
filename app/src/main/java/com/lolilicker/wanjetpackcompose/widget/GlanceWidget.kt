@@ -2,6 +2,7 @@ package com.lolilicker.wanjetpackcompose.widget
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
@@ -18,6 +19,8 @@ import androidx.glance.text.FontWeight
 import androidx.glance.text.Text
 import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.lolilicker.wanjetpackcompose.WanViewModel
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme.colors
 import com.rengwuxian.wecompose.ui.theme.white1
@@ -29,14 +32,21 @@ class GlanceWidget : GlanceAppWidget() {
 
     @Composable
     override fun Content() {
-        Box(
+        val wanViewModel: WanViewModel = viewModel()
+        Column(
             GlanceModifier.background(WeComposeTheme.colors.background.copy(alpha = 0.2f))
                 .padding(10.dp).fillMaxSize()
         ) {
             Text(
-                text = "test",
-                style = TextStyle(fontSize = 30.sp, color = ColorProvider(colors.textPrimary)),
-                modifier = GlanceModifier.fillMaxSize()
+                text = wanViewModel.grownTimeString,
+                style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
+                modifier = GlanceModifier.wrapContentWidth()
+            )
+            
+            Text(
+                text = wanViewModel.dueTimeString,
+                style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
+                modifier = GlanceModifier.wrapContentWidth()
             )
         }
 

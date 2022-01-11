@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.lolilicker.wanjetpackcompose.Constants
 import com.lolilicker.wanjetpackcompose.R
 import com.lolilicker.wanjetpackcompose.utils.DateUtils
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
@@ -39,7 +40,7 @@ fun DatePicker(onDateSelected: (Date) -> Unit, onDismissRequest: () -> Unit) {
 
 @Composable
 private fun dialogContent(onDateSelected: (Date) -> Unit, onDismissRequest: () -> Unit) {
-    val selDate = remember { mutableStateOf(Date()) }
+    val selDate = remember { mutableStateOf(Date(Constants.DEFAULT_LAST_PERIOD_DATE)) }
     Column(
         modifier = Modifier
             .wrapContentSize()
@@ -122,6 +123,9 @@ private fun CustomCalendarView(onDateSelected: (Date) -> Unit) {
         modifier = Modifier.wrapContentSize(),
         factory = { context ->
             CalendarView(ContextThemeWrapper(context, R.style.CalenderViewCustom))
+                .apply {
+                    setDate(Constants.DEFAULT_LAST_PERIOD_DATE)
+                }
         },
         update = { view ->
             view.minDate = Calendar.getInstance(Locale.CHINA).apply {

@@ -1,8 +1,10 @@
 package com.lolilicker.wanjetpackcompose
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -13,8 +15,13 @@ import com.lolilicker.wanjetpackcompose.widget.DatePicker
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        var instance: Activity? = null
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        instance = this
         setContent {
             WeComposeTheme() {
                 val navController = rememberNavController()
@@ -31,5 +38,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        instance = null
     }
 }
