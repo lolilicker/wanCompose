@@ -25,11 +25,13 @@
         </activity>
 
         <receiver
-            android:name=".widget.GlanceWidgetReceiver"
+            android:name=".receiver.GlanceWidgetReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
 
             <meta-data

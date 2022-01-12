@@ -27,9 +27,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.lolilicker.wanjetpackcompose.WanViewModel
+import com.lolilicker.wanjetpackcompose.receiver.GlanceWidgetReceiver
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
 import com.lolilicker.wanjetpackcompose.widget.DatePicker
-import com.lolilicker.wanjetpackcompose.widget.GlanceWidgetReceiver
 import com.lolilicker.wanjetpackcompose.widget.listItemButton
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme.colors

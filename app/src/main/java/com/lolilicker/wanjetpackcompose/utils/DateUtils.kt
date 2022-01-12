@@ -46,6 +46,21 @@ object DateUtils {
     private val sTimeFormatWithoutSecond = SimpleDateFormat("HH:mm")
     private val sTimeFormatWithoutHour = SimpleDateFormat("mm:ss")
 
+    fun formatGrownDateString(periodDate: Date?): String? {
+        periodDate ?: return null
+        return "咱孩儿已经有${getWeeksBetween(Date(), periodDate)}啦"
+    }
+
+    fun formatDueDateString(periodDate: Date?): String? {
+        periodDate ?: return null
+        return "离预产期还有 ${
+            DateUtils.getWeeksBetween(
+                Date(periodDate.time + 40 * ONE_WEEK_TIME),
+                Date()
+            )
+        }，加油！"
+    }
+
     /**
      * 将ISO8601格式的字符串转换为Date
      *

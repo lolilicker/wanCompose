@@ -7,7 +7,7 @@ plugins {
 
 android {
     signingConfigs {
-        release {
+        dev {
             storeFile file('../wan_compose.jks')
             storePassword 'wangbo'
             keyAlias 'xifuer_speical_supplied'
@@ -33,10 +33,10 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.dev
         }
         debug {
-            signingConfig signingConfigs.release
+            signingConfig signingConfigs.dev
         }
     }
     compileOptions {
