@@ -7,6 +7,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceModifier
@@ -34,17 +35,17 @@ class GlanceWidget : GlanceAppWidget() {
     @Composable
     override fun Content() {
         Column(
-            GlanceModifier.background(WeComposeTheme.colors.background.copy(alpha = 0.2f))
+            GlanceModifier.background(Color.Transparent)
                 .padding(10.dp).fillMaxSize()
         ) {
             Text(
                 text = Pref.ofUser().getString(WanViewModel.GROWN_TIME_STRING, "") ?: "",
-                style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
+                style = TextStyle(fontSize = 12.sp, color = ColorProvider(colors.listItem)),
                 modifier = GlanceModifier.wrapContentWidth()
             )
             Text(
                 text = Pref.ofUser().getString(WanViewModel.DUE_TIME_STRING, "") ?: "",
-                style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
+                style = TextStyle(fontSize = 12.sp, color = ColorProvider(colors.listItem)),
                 modifier = GlanceModifier.wrapContentWidth()
             )
         }
