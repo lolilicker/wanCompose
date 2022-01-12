@@ -1,5 +1,7 @@
 package com.lolilicker.wanjetpackcompose.widget
 
+import android.appwidget.AppWidgetManager
+import android.content.Context
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -10,6 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.edit
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
@@ -49,10 +52,29 @@ class GlanceWidget : GlanceAppWidget() {
                 modifier = GlanceModifier.wrapContentWidth()
             )
         }
-
     }
+
+
 }
 
 class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget = GlanceWidget()
+
+    override fun onDeleted(context: Context, appWidgetIds: IntArray) {
+        super.onDeleted(context, appWidgetIds)
+        Pref.ofUser().edit {
+            putBoolean("app_widget_added", false)
+        }
+    }
+
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+        Pref.ofUser().edit {
+            putBoolean("app_widget_added", true)
+        }
+    }
 }
