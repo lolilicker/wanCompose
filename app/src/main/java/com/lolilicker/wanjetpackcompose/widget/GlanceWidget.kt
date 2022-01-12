@@ -21,6 +21,7 @@ import androidx.glance.text.TextStyle
 import androidx.glance.unit.ColorProvider
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.lolilicker.wanjetpackcompose.WanViewModel
+import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme.colors
 import com.rengwuxian.wecompose.ui.theme.white1
@@ -32,19 +33,17 @@ class GlanceWidget : GlanceAppWidget() {
 
     @Composable
     override fun Content() {
-        val wanViewModel: WanViewModel = viewModel()
         Column(
             GlanceModifier.background(WeComposeTheme.colors.background.copy(alpha = 0.2f))
                 .padding(10.dp).fillMaxSize()
         ) {
             Text(
-                text = wanViewModel.grownTimeString,
+                text = Pref.ofUser().getString(WanViewModel.GROWN_TIME_STRING, "") ?: "",
                 style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
                 modifier = GlanceModifier.wrapContentWidth()
             )
-            
             Text(
-                text = wanViewModel.dueTimeString,
+                text = Pref.ofUser().getString(WanViewModel.DUE_TIME_STRING, "") ?: "",
                 style = TextStyle(fontSize = 16.sp, color = ColorProvider(colors.textPrimary)),
                 modifier = GlanceModifier.wrapContentWidth()
             )

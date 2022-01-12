@@ -10,4 +10,4 @@ val Context.colors: WeComposeColors
     @Composable
     get() = WeComposeTheme.colors
 
-val activity = MainActivity.instance
+val activity = MainActivity.instance!!
