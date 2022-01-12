@@ -57,12 +57,19 @@ class GlanceWidget : GlanceAppWidget() {
         ) {
             Text(
                 text = grownTimeString,
-                style = TextStyle(fontSize = 12.sp, color = ColorProvider(colors.listItem)),
+                style = TextStyle(
+                    fontSize = MaterialTheme.typography.body1.fontSize,
+                    color = ColorProvider(colors.listItem)
+                ),
                 modifier = GlanceModifier.wrapContentWidth()
             )
+            Spacer(GlanceModifier.size(16.dp))
             Text(
                 text = dueTimeString,
-                style = TextStyle(fontSize = 12.sp, color = ColorProvider(colors.listItem)),
+                style = TextStyle(
+                    fontSize = MaterialTheme.typography.body1.fontSize,
+                    color = ColorProvider(colors.listItem)
+                ),
                 modifier = GlanceModifier.wrapContentWidth()
             )
         }
