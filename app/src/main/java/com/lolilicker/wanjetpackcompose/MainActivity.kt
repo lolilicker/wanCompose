@@ -4,14 +4,13 @@ import android.app.Activity
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lolilicker.wanjetpackcompose.page.hatchingPage
 import com.lolilicker.wanjetpackcompose.page.infantPage
 import com.lolilicker.wanjetpackcompose.page.welcomePage
-import com.lolilicker.wanjetpackcompose.widget.DatePicker
+import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 
 class MainActivity : ComponentActivity() {
@@ -22,10 +21,12 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         instance = this
+        val defaultPage =
+            Pref.ofUser().getString("default_page", Screen.Welcome.route) ?: Screen.Welcome.route
         setContent {
             WeComposeTheme() {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screen.Welcome.route) {
+                NavHost(navController = navController, startDestination = defaultPage) {
                     composable(Screen.Welcome.route) {
                         welcomePage(navController = navController)
                     }
