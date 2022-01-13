@@ -370,6 +370,14 @@ object DateUtils {
         return durationInMillis / ONE_HOUR_TIME
     }
 
+    fun getDaysBetween(date1: Date?, date2: Date?): Int {
+        if (date1 == null || date2 == null) {
+            return 0
+        }
+        val durationInMillis = date1.time - date2.time
+        return (durationInMillis / ONE_DAY_TIME).toInt()
+    }
+
     fun getWeeksBetween(date1: Date?, date2: Date?): String {
         if (date1 == null || date2 == null) {
             return ""

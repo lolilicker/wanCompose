@@ -56,7 +56,7 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
         ticking = false
         CoroutineScope(Dispatchers.Default).launch {
             context.dataStore.edit {
-                it[booleanPreferencesKey(Pref.APP_WIDGET_ADDED)] = true
+                it[booleanPreferencesKey(Pref.APP_WIDGET_ADDED)] = false
             }
         }
     }

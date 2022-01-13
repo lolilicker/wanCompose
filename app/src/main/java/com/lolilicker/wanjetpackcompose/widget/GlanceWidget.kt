@@ -4,6 +4,7 @@ import android.appwidget.AppWidgetManager
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.annotation.IntDef
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,6 +26,7 @@ import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.appWidgetBackground
+import androidx.glance.appwidget.lazy.LazyColumn
 import androidx.glance.appwidget.updateAll
 import androidx.glance.background
 import androidx.glance.currentState
@@ -49,6 +51,15 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class GlanceWidget : GlanceAppWidget() {
+    @IntDef(DAY.CURRENT, DAY.FUTURE, DAY.PASSED)
+    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
+    annotation class DAY {
+        companion object {
+            const val PASSED = 0
+            const val CURRENT = 1
+            const val FUTURE = 2
+        }
+    }
 
     @Composable
     override fun Content() {
@@ -59,8 +70,16 @@ class GlanceWidget : GlanceAppWidget() {
                 Date(it)
             }
         }
-        val grownTimeString = DateUtils.formatGrownDateString(periodDate) ?: "最后一次大姨妈哪天来的啊"
-        val dueTimeString = DateUtils.formatDueDateString(periodDate) ?: "先去配置下"
+        val grownTimeString = remember(periodDateTimeMillis) {
+            DateUtils.formatGrownDateString(periodDate) ?: "最后一次大姨妈哪天来的啊"
+        }
+        val dueTimeString = remember(periodDateTimeMillis) {
+            DateUtils.formatDueDateString(periodDate) ?: "先去配置下"
+        }
+        val totalDays = 40 * 7
+        val daysLeft = remember {
+            DateUtils.getDaysBetween(periodDate, Date())
+        }
         Column(
             GlanceModifier.background(Color.Transparent)
                 .padding(10.dp).fillMaxSize()
@@ -82,7 +101,35 @@ class GlanceWidget : GlanceAppWidget() {
                 ),
                 modifier = GlanceModifier.wrapContentWidth()
             )
+            Spacer(GlanceModifier.size(16.dp))
+            Row {
+                for (i in 0 until totalDays) {
+                    day(
+                        dayType = when {
+                            i < (totalDays - daysLeft) -> DAY.PASSED
+                            i == (totalDays - daysLeft) -> DAY.CURRENT
+                            else -> DAY.FUTURE
+                        }
+                    )
+                }
+            }
         }
+    }
+
+    @Composable
+    private fun day(@DAY dayType: Int) {
+        val text = when (dayType) {
+            DAY.PASSED -> "-"
+            DAY.CURRENT -> "*"
+            DAY.FUTURE -> "."
+            else -> "."
+        }
+        Text(
+            text = text, style = TextStyle(
+                fontSize = MaterialTheme.typography.body2.fontSize,
+                color = ColorProvider(colors.listItem)
+            )
+        )
     }
 
     override val stateDefinition: GlanceStateDefinition<*> = PreferencesGlanceStateDefinition
