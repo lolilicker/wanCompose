@@ -20,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.sp
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
@@ -78,15 +79,15 @@ private fun contentView(
                 hatchingViewModel.showDatePicker = true
             }
         } else {
-            listItemButton(
-                wanViewModel.grownTimeString,
+            Text(
+                text = "${wanViewModel.grownTimeString}\n${wanViewModel.dueTimeString}",
+                modifier = Modifier
+                    .background(colors.listItem)
+                    .padding(25.dp)
+                    .fillMaxWidth(),
                 fontSize = MaterialTheme.typography.h4.fontSize,
-                clickable = false
-            )
-            listItemButton(
-                wanViewModel.dueTimeString,
-                fontSize = MaterialTheme.typography.h4.fontSize,
-                clickable = false
+                color = colors.textPrimary,
+                lineHeight = 50.sp
             )
 
             Spacer(Modifier.size(16.dp))

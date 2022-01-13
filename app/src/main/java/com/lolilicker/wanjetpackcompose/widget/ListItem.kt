@@ -17,6 +17,7 @@ import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 @Composable
 fun listItemButton(
     text: String,
+    modifier: Modifier = Modifier,
     fontSize: TextUnit = MaterialTheme.typography.h4.fontSize,
     clickable: Boolean = true,
     onClick: () -> Unit = {}
@@ -24,7 +25,7 @@ fun listItemButton(
     Text(text = text,
         fontSize = fontSize,
         color = WeComposeTheme.colors.textPrimary,
-        modifier = Modifier
+        modifier = modifier
             .background(WeComposeTheme.colors.listItem)
             .clickable(enabled = clickable) {
                 onClick()
