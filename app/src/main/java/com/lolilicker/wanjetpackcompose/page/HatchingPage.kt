@@ -20,42 +20,57 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.lolilicker.wanjetpackcompose.WanViewModel
 import com.lolilicker.wanjetpackcompose.receiver.GlanceWidgetReceiver
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
+import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref.dataStore
 import com.lolilicker.wanjetpackcompose.widget.DatePicker
 import com.lolilicker.wanjetpackcompose.widget.listItemButton
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme.colors
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import java.util.*
 
 @Composable
 fun hatchingPage(navController: NavController) {
-    val viewModel: HatchingViewModel = viewModel()
-    contentView()
+    WeComposeTheme() {
+        val viewModel: HatchingViewModel = viewModel()
 
-    if (viewModel.showDatePicker) {
-        datePickerView()
+        contentView()
+
+        if (viewModel.showDatePicker) {
+            datePickerView()
+        }
     }
 }
 
 @Composable
-private fun contentView() {
+private fun contentView(
+    wanViewModel: WanViewModel = viewModel(),
+    hatchingViewModel: HatchingViewModel = viewModel()
+) {
     Column(
         Modifier
             .background(MaterialTheme.colors.background)
             .padding(16.dp)
             .fillMaxSize()
     ) {
-        val hatchingViewModel: HatchingViewModel = viewModel()
-        val wanViewModel: WanViewModel = viewModel()
+        val context = LocalContext.current
+        wanViewModel.recalculateDate(context = context)
+        hatchingViewModel.checkAppwidget(context)
 
-        if (wanViewModel.lastPeriodDate.value == null) {
+        if (wanViewModel.lastPeriodDate == null) {
             listItemButton(
                 "最后一次大姨妈哪天来哒？",
                 fontSize = MaterialTheme.typography.h5.fontSize
@@ -65,19 +80,20 @@ private fun contentView() {
         } else {
             listItemButton(
                 wanViewModel.grownTimeString,
-                fontSize = MaterialTheme.typography.h4.fontSize
+                fontSize = MaterialTheme.typography.h4.fontSize,
+                clickable = false
             )
             listItemButton(
                 wanViewModel.dueTimeString,
-                fontSize = MaterialTheme.typography.h4.fontSize
+                fontSize = MaterialTheme.typography.h4.fontSize,
+                clickable = false
             )
 
             Spacer(Modifier.size(16.dp))
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && !hatchingViewModel.appwidgetAdded
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O &&
+                !hatchingViewModel.appwidgetAdded
             ) {
-                val context = LocalContext.current
-                val coroutineScope = rememberCoroutineScope()
                 Text(
                     text = "添加到桌面 ->",
                     Modifier
@@ -88,7 +104,7 @@ private fun contentView() {
                         )
                         .clickable {
                             hatchingViewModel.pinToLauncher(context)
-                            hatchingViewModel.checkAppwidget(coroutineScope)
+                            hatchingViewModel.checkAppwidget(context, 1000)
                         }
                         .padding(8.dp),
                     fontSize = MaterialTheme.typography.h6.fontSize,
@@ -104,10 +120,15 @@ private fun contentView() {
 private fun datePickerView() {
     val hatchingViewModel: HatchingViewModel = viewModel()
     val wanViewModel: WanViewModel = viewModel()
-    DatePicker(onDateSelected = {
+    val context = LocalContext.current
+
+    DatePicker(onDateSelected = { date ->
         hatchingViewModel.showDatePicker = false
-        wanViewModel.lastPeriodDate.value = it
-        wanViewModel.recalculateDate()
+        wanViewModel.lastPeriodDate = date
+        CoroutineScope(Dispatchers.Default).launch {
+            Pref.saveLatestPeriodData(context = context, date.time)
+            wanViewModel.recalculateDate(context)
+        }
     }) {
         hatchingViewModel.showDatePicker = false
     }
@@ -115,10 +136,7 @@ private fun datePickerView() {
 
 class HatchingViewModel : ViewModel() {
     var showDatePicker by mutableStateOf(false)
-    var appwidgetAdded by mutableStateOf(
-        Pref.ofUser()
-            .getBoolean("app_widget_added", false)
-    )
+    var appwidgetAdded by mutableStateOf(false)
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun pinToLauncher(context: Context) {
@@ -142,11 +160,14 @@ class HatchingViewModel : ViewModel() {
         Toast.makeText(context, "没有的话检查下是不是给了“创建桌面快捷方式”的权限", Toast.LENGTH_SHORT).show()
     }
 
-    fun checkAppwidget(coroutineScope: CoroutineScope) {
-        coroutineScope.launch {
-            delay(500)
-            appwidgetAdded = Pref.ofUser()
-                .getBoolean("app_widget_added", false)
+    fun checkAppwidget(context: Context, delayTime: Long = 0) {
+        viewModelScope.launch {
+            delay(delayTime)
+            context.dataStore.data.map {
+                it[booleanPreferencesKey(Pref.APP_WIDGET_ADDED)]
+            }.collect {
+                appwidgetAdded = it == true
+            }
         }
     }
 }
@@ -154,5 +175,9 @@ class HatchingViewModel : ViewModel() {
 @Preview("preview")
 @Composable
 fun preview() {
-    contentView()
+    contentView(WanViewModel().apply {
+        lastPeriodDate = Date()
+        grownTimeString = "grownTimeString"
+        dueTimeString = "dueTimeString"
+    }, HatchingViewModel())
 }

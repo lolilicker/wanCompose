@@ -11,6 +11,7 @@
 
     <style name="CalenderViewCustom" parent="ThemeOverlay.MaterialComponents.MaterialCalendar">
         <item name="colorAccent">@color/gray_black_333333</item>
+        <item name="colorPrimary">@color/red_5</item>
         <item name="colorOnPrimary">@color/gray_black_333333</item>
         <item name="colorSurface">@color/blue5_f8f9f9</item>
     </style>

@@ -10,11 +10,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.appwidget.GlanceAppWidget
@@ -22,6 +27,7 @@ import androidx.glance.appwidget.GlanceAppWidgetReceiver
 import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.updateAll
 import androidx.glance.background
+import androidx.glance.currentState
 import androidx.glance.layout.*
 import androidx.glance.state.GlanceStateDefinition
 import androidx.glance.state.PreferencesGlanceStateDefinition
@@ -43,12 +49,20 @@ import kotlinx.coroutines.withContext
 import java.util.*
 
 class GlanceWidget : GlanceAppWidget() {
+
     companion object {
     }
 
+
     @Composable
     override fun Content() {
-        val periodDate = Date(Pref.ofUser().getLong(WanViewModel.LATEST_PERIOD_DATE, 0L))
+        val prefs = currentState<Preferences>()
+        val periodDateTimeMillis = prefs[longPreferencesKey(Pref.LATEST_PERIOD_DATE)]
+        val periodDate = remember(periodDateTimeMillis) {
+            periodDateTimeMillis?.let {
+                Date()
+            }
+        }
         val grownTimeString = DateUtils.formatGrownDateString(periodDate) ?: ""
         val dueTimeString = DateUtils.formatDueDateString(periodDate) ?: ""
         Column(

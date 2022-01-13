@@ -135,7 +135,7 @@ private fun CustomCalendarView(onDateSelected: (Date) -> Unit) {
             view.setOnDateChangeListener { _, year, month, dayOfMonth ->
                 onDateSelected(
                     Date(Calendar.getInstance().apply {
-                        set(year, month, dayOfMonth)
+                        set(year, month, dayOfMonth, 0, 0)
                     }.timeInMillis)
                 )
             }
