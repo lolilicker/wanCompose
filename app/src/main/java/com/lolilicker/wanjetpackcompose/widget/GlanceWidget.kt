@@ -50,21 +50,17 @@ import java.util.*
 
 class GlanceWidget : GlanceAppWidget() {
 
-    companion object {
-    }
-
-
     @Composable
     override fun Content() {
         val prefs = currentState<Preferences>()
         val periodDateTimeMillis = prefs[longPreferencesKey(Pref.LATEST_PERIOD_DATE)]
         val periodDate = remember(periodDateTimeMillis) {
             periodDateTimeMillis?.let {
-                Date()
+                Date(it)
             }
         }
-        val grownTimeString = DateUtils.formatGrownDateString(periodDate) ?: ""
-        val dueTimeString = DateUtils.formatDueDateString(periodDate) ?: ""
+        val grownTimeString = DateUtils.formatGrownDateString(periodDate) ?: "最后一次大姨妈哪天来的啊"
+        val dueTimeString = DateUtils.formatDueDateString(periodDate) ?: "先去配置下"
         Column(
             GlanceModifier.background(Color.Transparent)
                 .padding(10.dp).fillMaxSize()
