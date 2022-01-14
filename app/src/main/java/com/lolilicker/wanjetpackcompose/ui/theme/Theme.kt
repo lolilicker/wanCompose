@@ -1,5 +1,7 @@
 package com.rengwuxian.wecompose.ui.theme
 
+import android.content.res.Configuration
+import android.os.Build
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.TweenSpec
 import androidx.compose.animation.core.animateFloatAsState
@@ -10,6 +12,7 @@ import androidx.compose.material.darkColors
 import androidx.compose.material.lightColors
 import androidx.compose.runtime.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 
 private val LightColorPalette = WeComposeColors(
     bottomBar = white1,
@@ -149,7 +152,7 @@ class WeComposeColors(
 
 @Composable
 fun WeComposeTheme(
-    theme: WeComposeTheme.Theme = WeComposeTheme.Theme.Light,
+    theme: WeComposeTheme.Theme = if (isSystemInDarkTheme()) WeComposeTheme.Theme.Dark else WeComposeTheme.Theme.Light,
     content: @Composable() () -> Unit
 ) {
     val targetColors = when (theme) {
