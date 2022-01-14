@@ -1,6 +1,5 @@
 package com.lolilicker.wanjetpackcompose.utils
 
-import android.util.Log
 import java.lang.Exception
 import java.lang.StringBuilder
 import java.text.ParseException
@@ -48,13 +47,13 @@ object DateUtils {
 
     fun formatGrownDateString(periodDate: Date?): String? {
         periodDate ?: return null
-        return "咱孩儿已经有${getWeeksBetween(Date(), periodDate)}啦"
+        return "咱孩儿已经有${getWeeksString(Date(), periodDate)}啦"
     }
 
     fun formatDueDateString(periodDate: Date?): String? {
         periodDate ?: return null
         return "离预产期还有 ${
-            DateUtils.getWeeksBetween(
+            DateUtils.getWeeksString(
                 Date(periodDate.time + 40 * ONE_WEEK_TIME),
                 Date()
             )
@@ -378,7 +377,15 @@ object DateUtils {
         return Math.abs((durationInMillis / ONE_DAY_TIME).toInt())
     }
 
-    fun getWeeksBetween(date1: Date?, date2: Date?): String {
+    fun getWeeksBetween(date1: Date?, date2: Date?): Int {
+        if (date1 == null || date2 == null) {
+            return 0
+        }
+        val durationInMillis = date1.time - date2.time
+        return Math.abs((durationInMillis / ONE_WEEK_TIME).toInt())
+    }
+
+    fun getWeeksString(date1: Date?, date2: Date?): String {
         if (date1 == null || date2 == null) {
             return ""
         }
