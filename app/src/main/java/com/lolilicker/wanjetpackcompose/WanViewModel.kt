@@ -21,7 +21,7 @@ import java.util.*
 
 class WanViewModel : ViewModel() {
     var defaultTab: MutableState<String?> = mutableStateOf(null)
-    
+
     var lastPeriodDate: Date? by mutableStateOf(null)
     var grownTimeString by mutableStateOf("")
     var dueTimeString by mutableStateOf("")
@@ -39,7 +39,7 @@ class WanViewModel : ViewModel() {
                 grownTimeString = DateUtils.formatGrownDateString(periodDate) ?: ""
                 dueTimeString = DateUtils.formatDueDateString(periodDate) ?: ""
 
-                LocalBroadcastManager.getInstance(context).sendBroadcast(Intent().apply {
+                context.sendBroadcast(Intent().apply {
                     action = "android.appwidget.action.APPWIDGET_UPDATE"
                 })
             }

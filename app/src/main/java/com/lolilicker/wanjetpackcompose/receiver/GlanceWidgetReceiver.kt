@@ -30,13 +30,10 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget = GlanceWidget()
     private var ticking = false
 
-    private var dataStore: DataStore<Preferences>? = null
-
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
         CoroutineScope(Dispatchers.Default).launch {
             updateAppWidget(context)
-//            tick(context)
         }
     }
 
@@ -47,7 +44,6 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
                 it[booleanPreferencesKey(Pref.APP_WIDGET_ADDED)] = true
             }
             updateAppWidget(context)
-//            tick(context)
         }
     }
 
@@ -71,14 +67,6 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 
     private suspend fun updateAppWidget(context: Context) {
         Log.d("glance", "update App Widget")
-//        if (dataStore == null) {
-//            dataStore =
-//                (glanceAppWidget.stateDefinition as PreferencesGlanceStateDefinition).getDataStore(
-//                    context,
-//                    "data"
-//                )
-//
-//        }
         val manager = GlanceAppWidgetManager(context)
         val glanceIds = manager.getGlanceIds(GlanceWidget::class.java)
 

@@ -10,12 +10,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.edit
@@ -48,19 +46,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.StringBuilder
 import java.util.*
 
 class GlanceWidget : GlanceAppWidget() {
-    @IntDef(DAY.CURRENT, DAY.FUTURE, DAY.PASSED)
-    @kotlin.annotation.Retention(AnnotationRetention.SOURCE)
-    annotation class DAY {
-        companion object {
-            const val PASSED = 0
-            const val CURRENT = 1
-            const val FUTURE = 2
-        }
-    }
-
     @Composable
     override fun Content() {
         val prefs = currentState<Preferences>()
@@ -78,7 +67,7 @@ class GlanceWidget : GlanceAppWidget() {
         }
         val totalDays = 40 * 7
         val daysLeft = remember {
-            DateUtils.getDaysBetween(periodDate, Date())
+            totalDays - DateUtils.getDaysBetween(periodDate, Date())
         }
         Column(
             GlanceModifier.background(Color.Transparent)
@@ -92,7 +81,7 @@ class GlanceWidget : GlanceAppWidget() {
                 ),
                 modifier = GlanceModifier.wrapContentWidth()
             )
-            Spacer(GlanceModifier.size(16.dp))
+            Spacer(GlanceModifier.size(6.dp))
             Text(
                 text = dueTimeString,
                 style = TextStyle(
@@ -101,36 +90,41 @@ class GlanceWidget : GlanceAppWidget() {
                 ),
                 modifier = GlanceModifier.wrapContentWidth()
             )
-            Spacer(GlanceModifier.size(16.dp))
-            Row {
-                for (i in 0 until totalDays) {
-                    day(
-                        dayType = when {
-                            i < (totalDays - daysLeft) -> DAY.PASSED
-                            i == (totalDays - daysLeft) -> DAY.CURRENT
-                            else -> DAY.FUTURE
-                        }
-                    )
-                }
-            }
+            Spacer(GlanceModifier.size(6.dp))
+
+            progress(daysLeft, totalDays)
         }
     }
 
     @Composable
-    private fun day(@DAY dayType: Int) {
-        val text = when (dayType) {
-            DAY.PASSED -> "-"
-            DAY.CURRENT -> "*"
-            DAY.FUTURE -> "."
-            else -> "."
+    private fun progress(daysLeft: Int = 0, totalDays: Int = 7 * 40) {
+        val text by remember(daysLeft, totalDays) {
+            val stringBuilder = StringBuilder()
+            for (i in 0 until totalDays) {
+                stringBuilder.append(
+                    when {
+                        i < (totalDays - daysLeft) -> "▨"
+                        i == (totalDays - daysLeft) -> "▣"
+                        else -> "□"
+                    }
+                )
+            }
+            mutableStateOf(stringBuilder.toString())
         }
-        Text(
-            text = text, style = TextStyle(
-                fontSize = MaterialTheme.typography.body2.fontSize,
-                color = ColorProvider(colors.listItem)
+
+        if (totalDays != 0) {
+            Text(
+                text = text,
+                modifier = GlanceModifier,
+                style = TextStyle(
+                    fontSize = 8.sp,
+                    color = ColorProvider(colors.listItem)
+                )
             )
-        )
+        }
     }
 
     override val stateDefinition: GlanceStateDefinition<*> = PreferencesGlanceStateDefinition
 }
+
+
