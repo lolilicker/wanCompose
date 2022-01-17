@@ -37,6 +37,17 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
         }
     }
 
+    override fun onUpdate(
+        context: Context,
+        appWidgetManager: AppWidgetManager,
+        appWidgetIds: IntArray
+    ) {
+        super.onUpdate(context, appWidgetManager, appWidgetIds)
+        CoroutineScope(Dispatchers.Default).launch {
+            updateAppWidget(context)
+        }
+    }
+
     override fun onEnabled(context: Context) {
         super.onEnabled(context)
         CoroutineScope(Dispatchers.Default).launch {
