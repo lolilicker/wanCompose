@@ -28,7 +28,6 @@ import java.util.*
 
 class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
     override val glanceAppWidget = GlanceWidget()
-    private var ticking = false
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
@@ -60,19 +59,10 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
 
     override fun onDisabled(context: Context) {
         super.onDisabled(context)
-        ticking = false
         CoroutineScope(Dispatchers.Default).launch {
             context.dataStore.edit {
                 it[booleanPreferencesKey(Pref.APP_WIDGET_ADDED)] = false
             }
-        }
-    }
-
-    private suspend fun tick(context: Context) {
-        if (!ticking) {
-            ticking = true
-            delay(DateUtils.ONE_MINUTE_TIME)
-            updateAppWidget(context)
         }
     }
 
@@ -92,9 +82,6 @@ class GlanceWidgetReceiver : GlanceAppWidgetReceiver() {
             }
 
             glanceAppWidget.updateAll(context = context)
-            if (ticking) {
-                tick(context)
-            }
         }
     }
 }
