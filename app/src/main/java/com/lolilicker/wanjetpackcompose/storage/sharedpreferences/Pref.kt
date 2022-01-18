@@ -22,6 +22,8 @@ object Pref {
     const val APP_WIDGET_ADDED = "app_widget_added"
     const val DEFAULT_PAGE = "default_page"
 
+    fun LAST_VIDEO_TIME(index: Int) = "last_video_time_$index"
+
     // At the top level of your kotlin file:
     val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
@@ -35,5 +37,4 @@ object Pref {
         context.dataStore.edit {
             it[longPreferencesKey(LATEST_PERIOD_DATE)] = date
         }
-
 }
