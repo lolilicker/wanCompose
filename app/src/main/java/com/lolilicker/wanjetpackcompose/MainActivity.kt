@@ -16,6 +16,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.lolilicker.wanjetpackcompose.page.hatchingPage
 import com.lolilicker.wanjetpackcompose.page.infantPage
+import com.lolilicker.wanjetpackcompose.page.playerPage
 import com.lolilicker.wanjetpackcompose.page.welcomePage
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref.dataStore
@@ -52,6 +53,9 @@ class MainActivity : ComponentActivity() {
                         }
                         composable(Screen.Infant.route) {
                             infantPage(navController = navController)
+                        }
+                        composable(Screen.Player.route) {
+                            playerPage(navController = navController)
                         }
                     }
                 }

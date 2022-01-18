@@ -20,6 +20,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
@@ -27,6 +28,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.lolilicker.wanjetpackcompose.R
+import com.lolilicker.wanjetpackcompose.Screen
 import com.lolilicker.wanjetpackcompose.WanViewModel
 import com.lolilicker.wanjetpackcompose.receiver.GlanceWidgetReceiver
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
@@ -48,7 +52,7 @@ fun hatchingPage(navController: NavController) {
     WeComposeTheme() {
         val viewModel: HatchingViewModel = viewModel()
 
-        contentView()
+        contentView(navController)
 
         if (viewModel.showDatePicker) {
             datePickerView()
@@ -58,6 +62,7 @@ fun hatchingPage(navController: NavController) {
 
 @Composable
 private fun contentView(
+    navController: NavController,
     wanViewModel: WanViewModel = viewModel(),
     hatchingViewModel: HatchingViewModel = viewModel()
 ) {
@@ -73,7 +78,7 @@ private fun contentView(
 
         if (wanViewModel.lastPeriodDate == null) {
             listItemButton(
-                "最后一次大姨妈哪天来哒？",
+                "最后一次大姨妈哪天来哒？ ->",
                 fontSize = MaterialTheme.typography.h5.fontSize
             ) {
                 hatchingViewModel.showDatePicker = true
@@ -114,6 +119,10 @@ private fun contentView(
             }
         }
 
+        listItemButton(text = "凯格尔回旋加速提肛运动 ->") {
+            val page = Screen.Player
+            navController.navigate(page.route)
+        }
     }
 }
 
@@ -176,9 +185,12 @@ class HatchingViewModel : ViewModel() {
 @Preview("preview")
 @Composable
 fun preview() {
-    contentView(WanViewModel().apply {
-        lastPeriodDate = Date()
-        grownTimeString = "grownTimeString"
-        dueTimeString = "dueTimeString"
-    }, HatchingViewModel())
+    contentView(
+        rememberNavController(),
+        WanViewModel().apply {
+            lastPeriodDate = Date()
+            grownTimeString = "grownTimeString"
+            dueTimeString = "dueTimeString"
+        }, HatchingViewModel()
+    )
 }

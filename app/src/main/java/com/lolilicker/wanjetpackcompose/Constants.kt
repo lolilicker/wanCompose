@@ -8,4 +8,5 @@ object Constants {
     }.timeInMillis
 
     val TOTAL_WEEKS = 40
+    val ASSETS_PATH = "file:///android_asset"
 }

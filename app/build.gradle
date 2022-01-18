@@ -79,6 +79,10 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.0'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
 
+    implementation 'com.google.android.exoplayer:exoplayer-core:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-hls:2.13.3'
+    implementation 'com.google.android.exoplayer:exoplayer-ui:2.13.3'
+
     implementation "androidx.room:room-runtime:$room_version"
     implementation 'androidx.datastore:datastore-preferences:1.0.0'
     annotationProcessor "androidx.room:room-compiler:$room_version"
