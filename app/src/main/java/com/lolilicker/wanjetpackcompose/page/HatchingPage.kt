@@ -35,6 +35,7 @@ import com.lolilicker.wanjetpackcompose.WanViewModel
 import com.lolilicker.wanjetpackcompose.receiver.GlanceWidgetReceiver
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref
 import com.lolilicker.wanjetpackcompose.storage.sharedpreferences.Pref.dataStore
+import com.lolilicker.wanjetpackcompose.utils.DateUtils
 import com.lolilicker.wanjetpackcompose.widget.DatePicker
 import com.lolilicker.wanjetpackcompose.widget.listItemButton
 import com.rengwuxian.wecompose.ui.theme.WeComposeTheme
@@ -79,7 +80,7 @@ private fun contentView(
         if (wanViewModel.lastPeriodDate == null) {
             listItemButton(
                 "最后一次大姨妈哪天来哒？ ->",
-                fontSize = MaterialTheme.typography.h5.fontSize
+                fontSize = MaterialTheme.typography.h4.fontSize
             ) {
                 hatchingViewModel.showDatePicker = true
             }
@@ -89,7 +90,16 @@ private fun contentView(
                 modifier = Modifier
                     .background(colors.listItem)
                     .padding(25.dp)
-                    .fillMaxWidth(),
+                    .fillMaxWidth()
+                    .clickable {
+                        Toast
+                            .makeText(
+                                context,
+                                "${DateUtils.formatDateTime(wanViewModel.lastPeriodDate)}",
+                                Toast.LENGTH_SHORT
+                            )
+                            .show()
+                    },
                 fontSize = MaterialTheme.typography.h4.fontSize,
                 color = colors.textPrimary,
                 lineHeight = 50.sp
@@ -117,11 +127,13 @@ private fun contentView(
                     color = colors.textPrimary
                 )
             }
-        }
 
-        listItemButton(text = "凯格尔回旋加速提肛运动 ->") {
-            val page = Screen.Player
-            navController.navigate(page.route)
+            Spacer(Modifier.size(16.dp))
+
+            listItemButton(text = "凯格尔回旋加速提肛运动 ->") {
+                val page = Screen.Player
+                navController.navigate(page.route)
+            }
         }
     }
 }

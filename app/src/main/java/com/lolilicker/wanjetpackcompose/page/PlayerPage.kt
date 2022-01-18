@@ -37,7 +37,10 @@ fun playerPage(navController: NavController) {
         if (viewModel.playingIndex == -1) {
             playList()
         } else {
-            Box(Modifier.fillMaxSize()) {
+            Column(
+                Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center
+            ) {
                 Player(mediaItemList[viewModel.playingIndex])
                 backPressHandler(onBackPressed = {
                     viewModel.playingIndex = -1
